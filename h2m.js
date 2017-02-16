@@ -23,6 +23,7 @@
   h2m.addComma = addComma;
   h2m.removeComma = removeComma;
 
+  // compare callback function 기본으로 적용된 sort
   function sort(array, order) {
     var fnc = function(a, b) {
       if ( a < b ) {
@@ -41,12 +42,13 @@
   }
   h2m.sort = sort;
 
+  // key값을 기준으로 sort하여 key와 value값을 가진 배열로 리턴
   function sortObjectByKey( obj, order ) {
     var keys,
-        i = 0,
+        i,
         k,
         len,
-        result = {};
+        result = [];
 
     if( typeof Object.keys === 'function' ) {
       keys = Object.keys(obj);
@@ -59,12 +61,42 @@
 
     sort( keys, order );
     len = keys.length;
-    for( i; i < len; i++ ) {
-      result[keys[i]] = obj[keys[i]];
+    for( i = 0; i < len; i++ ) {
+      result.push( [ keys[i], obj[keys[i]] ] );
     }
     return result;
   }
+  // value값을 기준으로 sort하여 key와 value값을 가진 배열로 리턴
+  function sortObjectByValue( obj, order ) {
+    var sortArray = [],
+        result = {},
+        k, i;
+    for (k in obj) {
+      sortArray.push( [k, obj[k]] );
+    }
+
+    sortArray.sort(function(a, b) {
+      if( a[1] < b[1] ) {
+        return -1;
+      }
+      if( a[1] > b[1] ) {
+        return 1;
+      }
+      return 0;
+    });
+
+    if( order === 'desc' ) {
+      return sortArray.reverse();
+    } else {
+      return sortArray;
+    }
+
+  }
   h2m.sortObjectByKey = sortObjectByKey;
+  h2m.sortObjectByValue = sortObjectByValue;
+
+
+
 
 
   return global.h2m = h2m;

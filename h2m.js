@@ -1,5 +1,3 @@
-// h2mjs
-// version : 1.0.0
 (function() {
   'use stric';
 
@@ -184,6 +182,93 @@
   }
   h2m.arrayMap = arrayMap;
 
+  function arrayIntersect() {
+    if( arguments.length < 2 ) {
+      throw new TypeError( 'need' + 2 - arguments.length + ' more argument ');
+    }
+
+    var i, j,
+        shortArray = getShortArray(arguments)[0],
+        len = shortArray.length,
+        result = [],
+        selectedItem,
+        chkHaveItem;
+
+    for( i = 0; i < len; i++ ) {
+      selectedItem = shortArray[i];
+      chkHaveItem = true;
+      for( j = 0; j < arguments.length; j++ ) {
+        if( arrayIndexOf( arguments[j], selectedItem ) === -1 ) {
+          chkHaveItem = false;
+          break;
+        }
+      }
+      if( chkHaveItem && arrayIndexOf( result, selectedItem ) === -1 ) {
+        result.push( selectedItem );
+      }
+    }
+    return result;
+  }
+  function arrayIndexOf( array, searchItem, fromIndex ) {
+    var i,
+        len = array.length;
+
+    i = Math.abs(fromIndex) || 0;
+    if( i > len ) {
+      return -1;
+    }
+    for( i; i < len; i++ ) {
+      if( searchItem === array[i] && i in array ) {
+        return i;
+      }
+    }
+    return -1;
+  }
+  function getShortArray() {
+    if( arguments.length < 2 && !isArray(arguments[0][0]) ) {
+      throw new TypeError( 'need' + 2 - arguments.length + ' more argument ');
+    }
+
+    var arg;
+    if( isArray(arguments[0][0]) ) {
+      arg = arrayMap( arguments[0], function(v) {
+        return v;
+      })
+    } else {
+      arg = arguments;
+    }
+
+    var i,
+        len = arg.length,
+        tempArray = [],
+        cnt = 0,
+        currentLength,
+        tempArrayLength;
+
+    for( i = 0; i < len; i++ ) {
+      tempArrayLength = arg[(tempArray[0] ? tempArray[0] : 0)].length;
+      currentLength = arg[i].length;
+
+      if( !cnt || tempArrayLength >= currentLength ) {
+        if( tempArrayLength !== currentLength ) {
+          tempArray.pop();
+        }
+        tempArray.push( i );
+        cnt++;
+      }
+    }
+
+    return arrayMap( tempArray, function(v) {
+      return arg[v]
+    });
+  }
+  function isArray(array) {
+    return Object.prototype.toString.call(array) === '[object Array]';
+  }
+  h2m.arrayIntersect = arrayIntersect;
+  h2m.arrayIndexOf = arrayIndexOf;
+  h2m.getShortArray = getShortArray;
+  h2m.isArray = isArray;
 
 
   return global.h2m = h2m;

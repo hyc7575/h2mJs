@@ -1,8 +1,90 @@
 // h2mjs
 // version : 1.0.0
-
 (function() {
   'use stric';
+
+  this.testObj = {
+    data : {
+      0 : {
+        bName: '미미미123',
+        color: {
+          boxColor: '#fff',
+          lineColor: '#fbfbfb',
+          id: 8
+        },
+        weddingHall: '아스티에'
+      },
+      1: {
+        bName: '가이오낭',
+        color: {
+          boxColor: '#fcfcfc',
+          lineColor: '#aaa',
+          id: 12
+        },
+        weddingHall: '우디홀'
+      },
+      2: {
+        bName: '전근혁',
+        color: {
+          boxColor: '#fff',
+          lineColor: '#fbfbfb',
+          id: 6
+        },
+        weddingHall: '코르비'
+      },
+      3: {
+        bName: '하이홍',
+        color: {
+          boxColor: '#fff',
+          lineColor: '#fbfbfb',
+          id: 13
+        },
+        weddingHall: '세시코'
+      },
+      4: {
+        bName: '주노주노',
+        color: {
+          boxColor: '#fff',
+          lineColor: '#fbfbfb',
+          id: 1
+        },
+        weddingHall: '도아잉ㅇ'
+      },
+      5: {
+        bName: '코에키스',
+        color: {
+          boxColor: '#fff',
+          lineColor: '#fbfbfb',
+          id: 4
+        },
+        weddingHall: '허햐해이멘'
+      }
+    },
+    hallMap : {
+      '무슨홀' : {
+        id: 153,
+        color: '#fbcfdc'
+      },
+      'afa홀' : {
+        id: 12,
+        color: '#fbcfdc'
+      },
+      '카이홀' : {
+        id: 168,
+        color: '#fbcfdc'
+      },
+      '제이홀' : {
+        id: 445,
+        color: '#fbcfdc'
+      },
+      '프리아미저홀' : {
+        id: 53,
+        color: '#fbcfdc'
+      }
+    }
+  }
+
+
 
   var global = this;
 
@@ -66,36 +148,41 @@
     }
     return result;
   }
-  // value값을 기준으로 sort하여 key와 value값을 가진 배열로 리턴
-  function sortObjectByValue( obj, order ) {
-    var sortArray = [],
-        result = {},
-        k, i;
-    for (k in obj) {
-      sortArray.push( [k, obj[k]] );
-    }
-
-    sortArray.sort(function(a, b) {
-      if( a[1] < b[1] ) {
-        return -1;
-      }
-      if( a[1] > b[1] ) {
-        return 1;
-      }
-      return 0;
-    });
-
-    if( order === 'desc' ) {
-      return sortArray.reverse();
-    } else {
-      return sortArray;
-    }
-
-  }
   h2m.sortObjectByKey = sortObjectByKey;
-  h2m.sortObjectByValue = sortObjectByValue;
 
+  // object가 담긴 배열에서 특정 키값의 value를 추출
+  function plunkSelectKey(array, key) {
+    var i,
+        len = array.length,
+        result = [];
+    for( i = 0; i < len; i++ ) {
+      result.push( array[i][key] );
+    }
+    return result;
+  }
+  h2m.plunkSelectKey = plunkSelectKey;
 
+  // Array객체의 map 메서드 구현 (ie 미지원으로 인한 문제 해결)
+  function arrayMap( array, callback ) {
+    if ( typeof callback !== 'function' ) {
+      throw new TypeError(callback + 'is not a function or null');
+    }
+    var i,
+        len = array.length,
+        result = [],
+        currentValue,
+        mappedCurrentValue;
+
+    result.length = len;
+    for( i = 0; i < len; i++ ) {
+      currentValue = array[i];
+      mappedCurrentValue = callback.call(this, currentValue, i, array);
+      result[i] = mappedCurrentValue;
+    }
+
+    return result;
+  }
+  h2m.arrayMap = arrayMap;
 
 
 

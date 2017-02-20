@@ -265,6 +265,7 @@
   function isArray(array) {
     return Object.prototype.toString.call(array) === '[object Array]';
   }
+  
   h2m.arrayIntersect = arrayIntersect;
   h2m.arrayIndexOf = arrayIndexOf;
   h2m.getShortArray = getShortArray;

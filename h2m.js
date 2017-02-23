@@ -139,6 +139,46 @@
     };
   }
 
+  if (!Object.keys) {
+    Object.keys = (function() {
+
+      var hasOwnProperty = ObjProto.hasOwnProperty,
+          hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+          dontEnums = [
+            'toString',
+            'toLocaleString',
+            'valueOf',
+            'hasOwnProperty',
+            'isPrototypeOf',
+            'propertyIsEnumerable',
+            'constructor'
+          ],
+          dontEnumsLength = dontEnums.length;
+
+      return function(obj) {
+        if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
+          throw new TypeError('Object.keys called on non-object');
+        }
+        var result = [], prop, i;
+
+        for (prop in obj) {
+          if (hasOwnProperty.call(obj, prop)) {
+            result.push(prop);
+          }
+        }
+
+        if (hasDontEnumBug) {
+          for (i = 0; i < dontEnumsLength; i++) {
+            if (hasOwnProperty.call(obj, dontEnums[i])) {
+              result.push(dontEnums[i]);
+            }
+          }
+        }
+        return result;
+      };
+    }());
+  }
+
 
 })(window);
 (function() {
@@ -163,10 +203,10 @@
   h2m.addComma = addComma;
   h2m.removeComma = removeComma;
 
-  function onlyNumber(val) {
+  function leaveOnlyNumber(val) {
     return val.replace(/[^0-9\-]/gi,'');
   }
-  h2m.onlyNumber = onlyNumber;
+  h2m.leaveOnlyNumber = leaveOnlyNumber;
 
   // compare callback function 기본으로 적용된 sort
   function sort(array, order) {

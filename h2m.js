@@ -390,8 +390,40 @@
 
   function browserInfo() {
     // 브라우저 정보 객체를 반환 하는 함수
-    var ua = navigator.userAgent;
+    var ua = navigator.userAgent.toLowerCase();
+
+
   }
+  function cookie() {
+    function getCookie(cname) {
+      var value = '; ' + document.cookie;
+      var parts = value.split('; ' + cname + '=');
+
+      if ( parts.length === 2 ) {
+        return parts.pop().split(';').shift();
+      }
+    }
+    function setCookie(cname, value, path, days) {
+      var date, expires;
+      if( days ) {
+      	date = new Date();
+      	date.setTime(date.getTime() + ( days * 24 * 60 * 60 * 1000 ) );
+      	expires = '; expires=' + date.toUTCString();
+      } else {
+      	expires = '';
+      }
+      document.cookie = cname + '=' + value+expires + ';path=' + path + ';';
+    }
+    function delCookie(cname, path) {
+    	document.cookie = cname + '=;path=' + path + '; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+    return {
+      get : getCookie,
+      set: setCookie,
+      del : delCookie
+    }
+  }
+  h2m.cookie = cookie();
 
 
   return global.h2m = h2m;

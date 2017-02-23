@@ -1,4 +1,4 @@
-(function (global) { //브라우저 별 함수가 다를 경우를 지원하기 위한 영역
+(function (global) { //브라우저 별 함수가 다를 경우를 지원하기 위한 영역 (MDN polyfill 참조)
   'use strict';
 
   var ArrayProto = Array.prototype,
@@ -190,13 +190,13 @@
   var ArrayProto = Array.prototype,
       ObjProto = Object.prototype;
 
-  // 가격에 , 붙여서 string형태로 return
   function addComma(num) {
+    // 가격에 , 붙여서 string형태로 return
     num = '' + num;
     return num.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
   }
-  // 가격에 , 삭제하여 number형태로 return
   function removeComma(str) {
+    // 가격에 , 삭제하여 number형태로 return
     str = '' + str;
     return parseInt(str.replace(/,/g,''), 10);
   }
@@ -208,8 +208,8 @@
   }
   h2m.leaveOnlyNumber = leaveOnlyNumber;
 
-  // compare callback function 기본으로 적용된 sort
   function sort(array, order) {
+    // compare callback function 기본으로 적용된 sort
     var fnc = function(a, b) {
       if ( a < b ) {
         return -1;
@@ -227,8 +227,8 @@
   }
   h2m.sort = sort;
 
-  // key값을 기준으로 sort하여 key와 value값을 가진 배열로 리턴
   function sortObjectByKey( obj, order ) {
+    // key값을 기준으로 sort하여 key와 value값을 가진 배열로 리턴
     var keys,
         i,
         k,
@@ -253,8 +253,8 @@
   }
   h2m.sortObjectByKey = sortObjectByKey;
 
-  // object가 담긴 배열에서 특정 키값의 value를 추출
   function plunkSelectKey(array, key) {
+    // object가 담긴 배열에서 특정 키값의 value를 추출
     var i,
         len = array.length,
         result = [];
@@ -265,8 +265,8 @@
   }
   h2m.plunkSelectKey = plunkSelectKey;
 
-  // Array객체의 map 메서드 구현 (ie 미지원으로 인한 문제 해결)
   function arrayMap( array, callback ) {
+    // Array객체의 map 메서드 구현
     if ( typeof callback !== 'function' ) {
       throw new TypeError(callback + 'is not a function or null');
     }
@@ -288,8 +288,14 @@
   h2m.arrayMap = arrayMap;
 
   function arrayIntersect() {
+    // 배열들의 각 요소들 중 중복 값 배열을 반환
     if( arguments.length < 2 ) {
       throw new TypeError( 'need' + 2 - arguments.length + ' more argument ');
+    }
+    for( var al = 0; al < arguments.length; al++ ) {
+      if( !isArray(arguments[al]) ) {
+        throw new TypeError( 'arguments[' + al + '] is not array'  );
+      }
     }
 
     var i, j,
@@ -315,6 +321,7 @@
     return result;
   }
   function arrayIndexOf( array, searchItem, fromIndex ) {
+    // array.prototype.indexOf 기능 함수형태로 구현
     var i,
         len = array.length;
 
@@ -330,6 +337,7 @@
     return -1;
   }
   function getShortArray() {
+    // 인자로 받은 배열들 중 length 가 가장 짧은 배열 반환 ( 2개 이상 반환 가능 )
     if( arguments.length < 2 && !isArray(arguments[0][0]) ) {
       throw new TypeError( 'need' + 2 - arguments.length + ' more argument ');
     }
@@ -371,10 +379,19 @@
     return Object.prototype.toString.call(array) === '[object Array]';
   }
 
-  h2m.arrayIntersect = arrayIntersect;
-  h2m.arrayIndexOf = arrayIndexOf;
-  h2m.getShortArray = getShortArray;
+  h2m.arrayIntersect = arrayIntersect; // 배열들의 각 요소들 중 중복 값 배열을 반환
+  h2m.arrayIndexOf = arrayIndexOf; // array.prototype.indexOf 기능 함수형태로 구현
+  h2m.getShortArray = getShortArray; // 인자로 받은 배열들 중 length 가 가장 짧은 배열 반환 ( 2개 이상 반환 가능 )
   h2m.isArray = isArray;
+
+
+
+
+
+  function browserInfo() {
+    // 브라우저 정보 객체를 반환 하는 함수
+    var ua = navigator.userAgent;
+  }
 
 
   return global.h2m = h2m;

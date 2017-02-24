@@ -391,9 +391,13 @@
   function browserInfo() {
     // 브라우저 정보 객체를 반환 하는 함수
     var ua = navigator.userAgent.toLowerCase();
+    
+    return {
 
-
+    }
   }
+  h2m.browser = browserInfo();
+
   function cookie() {
     function getCookie(cname) {
       var value = '; ' + document.cookie;

@@ -397,37 +397,14 @@
         isMobile,
         osName = 'Unknown';
 
-    // ie 체크
-    if( /trident/i.test(M[1]) ) {
-      tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
-      return {
-        name : 'IE',
-        version : ( tem[1] || '' )
-      };
-    }
 
-    // opera 체크
-    if(M[1]==='Chrome') {
-      tem = ua.match(/\bOPR|Edge\/(\d+)/)
-      if( tem != null ) {
-        return {
-          name : 'Opera',
-          version : tem[1]
-        };
-      }
-    }
-
-    M = M[2] ? [M[1], M[2]] : [navigator.appName, av, '-?'];
-    if( ( tem = ua.match(/version\/(\d+)/i) ) != null ) {
-      M.splice(1,1,tem[1]);
-    }
-
+    // mobile 체크
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) ) {
       isMobile = true;
     } else {
       isMobile = false;
     }
-
+    
     // os 체크
     if( !isMobile ) {
       if ( /Win/i.test(av) ) {
@@ -452,6 +429,35 @@
       if( /BlackBerry/i.test(av) ) {
         osName = 'BlackBerry'
       }
+    }
+
+    // ie 체크
+    if( /trident/i.test(M[1]) ) {
+      tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+      return {
+        name : 'IE',
+        version : ( tem[1] || '' ),
+        isMobile: isMobile,
+        os: osName
+      };
+    }
+
+    // opera 체크
+    if(M[1]==='Chrome') {
+      tem = ua.match(/\bOPR|Edge\/(\d+)/)
+      if( tem != null ) {
+        return {
+          name : 'Opera',
+          version : tem[1],
+          isMobile: isMobile,
+          os: osName
+        };
+      }
+    }
+
+    M = M[2] ? [M[1], M[2]] : [navigator.appName, av, '-?'];
+    if( ( tem = ua.match(/version\/(\d+)/i) ) != null ) {
+      M.splice(1,1,tem[1]);
     }
 
     return {

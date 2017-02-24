@@ -388,15 +388,80 @@
 
 
 
-  function browserInfo() {
+  function platformInfo() {
     // 브라우저 정보 객체를 반환 하는 함수
-    var ua = navigator.userAgent.toLowerCase();
-    
-    return {
+    var ua = navigator.userAgent.toLowerCase(),
+        av = navigator.appVersion,
+        tem,
+        M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [],
+        isMobile,
+        osName = 'Unknown';
 
+    // ie 체크
+    if( /trident/i.test(M[1]) ) {
+      tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+      return {
+        name : 'IE',
+        version : ( tem[1] || '' )
+      };
     }
+
+    // opera 체크
+    if(M[1]==='Chrome') {
+      tem = ua.match(/\bOPR|Edge\/(\d+)/)
+      if( tem != null ) {
+        return {
+          name : 'Opera',
+          version : tem[1]
+        };
+      }
+    }
+
+    M = M[2] ? [M[1], M[2]] : [navigator.appName, av, '-?'];
+    if( ( tem = ua.match(/version\/(\d+)/i) ) != null ) {
+      M.splice(1,1,tem[1]);
+    }
+
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) ) {
+      isMobile = true;
+    } else {
+      isMobile = false;
+    }
+
+    // os 체크
+    if( !isMobile ) {
+      if ( /Win/i.test(av) ) {
+        osName = 'Windows';
+      }
+      if ( /Mac/i.test(av) ) {
+        osName = 'MacOS';
+      }
+      if ( /X11/i.test(av) ) {
+        osName = 'UNIX';
+      }
+      if ( /Linux/i.test(av) ) {
+        osName = 'Linux';
+      }
+    } else {
+      if( /Android/i.test(av) ) {
+        osName = 'android';
+      }
+      if( /iPhone|iPad|iPod/i.test(av) ) {
+        osName = 'ios';
+      }
+      if( /BlackBerry/i.test(av) ) {
+        osName = 'BlackBerry'
+      }
+    }
+
+    return {
+      name: M[0],
+      version: M[1],
+      isMobile: isMobile,
+      os: osName
+    };
   }
-  h2m.browser = browserInfo();
+  h2m.platform = platformInfo;
 
   function cookie() {
     function getCookie(cname) {

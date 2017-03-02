@@ -76,40 +76,6 @@
     };
   }
 
-  if (!Array.prototype.filter) {
-    Array.prototype.filter = function(fun/*, thisArg*/) {
-
-      if (this === void 0 || this === null) {
-        throw new TypeError();
-      }
-
-      var t = Object(this);
-      var len = t.length >>> 0;
-      if (typeof fun !== 'function') {
-        throw new TypeError();
-      }
-
-      var res = [];
-      var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
-      for (var i = 0; i < len; i++) {
-        if (i in t) {
-          var val = t[i];
-
-          // 주의: 기술상 이는 아마 다음 인덱스에서
-          //       Object.defineProperty일 것임, push는 Object.prototype
-          //       및 Array.prototype 상 속성에 의해 영향을 받을 수 있기에.
-          //       그러나 그 메소드는 새롭고 충돌은
-          //       드물기에 더 호환되는 대안을 쓰세요.
-          if (fun.call(thisArg, val, i, t)) {
-            res.push(val);
-          }
-        }
-      }
-
-      return res;
-    };
-  }
-
   if (!ArrayProto.filter) {
     ArrayProto.filter = function(fun) {
 
@@ -178,9 +144,8 @@
       };
     }());
   }
-
-
 })(window);
+
 (function() {
   'use stric';
 
@@ -189,6 +154,12 @@
   var h2m = {};
   var ArrayProto = Array.prototype,
       ObjProto = Object.prototype;
+
+  // 브라우저 전체에 새로 스크롤 생성여부 체크
+  function hasVerticalScroll() {
+    return document.body.scrollHeight > window.innerHeight;
+  }
+  h2m.hasVerticalScroll = hasVerticalScroll;
 
   function addComma(num) {
     // 가격에 , 붙여서 string형태로 return
@@ -203,10 +174,19 @@
   h2m.addComma = addComma;
   h2m.removeComma = removeComma;
 
+  // 숫자를 제외하고 전부 삭제해서 return
   function leaveOnlyNumber(val) {
     return val.replace(/[^0-9\-]/gi,'');
   }
   h2m.leaveOnlyNumber = leaveOnlyNumber;
+
+
+
+  // object의 key 개수
+  function objectSize( obj ) {
+    return Object.keys(obj).length;
+  }
+  h2m.objectSize = objectSize;
 
   function sort(array, order) {
     // compare callback function 기본으로 적용된 sort
@@ -404,7 +384,7 @@
     } else {
       isMobile = false;
     }
-    
+
     // os 체크
     if( !isMobile ) {
       if ( /Win/i.test(av) ) {
@@ -500,6 +480,23 @@
   }
   h2m.cookie = cookie();
 
-
+  function queryString() {
+    var query_string = {};
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+      var pair = vars[i].split("=");
+      if (typeof query_string[pair[0]] === "undefined") {
+        query_string[pair[0]] = decodeURIComponent(pair[1]);
+      } else if (typeof query_string[pair[0]] === "string") {
+        var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
+        query_string[pair[0]] = arr;
+      } else {
+        query_string[pair[0]].push(decodeURIComponent(pair[1]));
+      }
+    }
+    return query_string;
+  }
+  h2m.queryString = queryString;
   return global.h2m = h2m;
 }.call(this));

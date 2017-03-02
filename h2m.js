@@ -4,7 +4,7 @@
   var ArrayProto = Array.prototype,
       ObjProto = Object.prototype;
 
-  if (typeof window.console === "undefined" || typeof window.console.log === "undefined") { // ie8 console log 객체 생성 (에러 방지)
+  if (typeof window.console === 'undefined' || typeof window.console.log === 'undefined') { // ie8 console log 객체 생성 (에러 방지)
     global.console = { log: function () { } };
   }
 
@@ -454,7 +454,7 @@
       var value = '; ' + document.cookie;
       var parts = value.split('; ' + cname + '=');
 
-      if ( parts.length === 2 ) {
+      if( parts.length === 2 ) {
         return parts.pop().split(';').shift();
       }
     }
@@ -481,22 +481,25 @@
   h2m.cookie = cookie();
 
   function queryString() {
-    var query_string = {};
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i=0;i<vars.length;i++) {
-      var pair = vars[i].split("=");
-      if (typeof query_string[pair[0]] === "undefined") {
-        query_string[pair[0]] = decodeURIComponent(pair[1]);
-      } else if (typeof query_string[pair[0]] === "string") {
-        var arr = [ query_string[pair[0]],decodeURIComponent(pair[1]) ];
-        query_string[pair[0]] = arr;
+    var queryString = {},
+        query = global.location.search.substring(1),
+        queryArr = query.split('&'),
+        i
+
+    for( i = 0; i < queryArr.length; i++ ) {
+      var pair = queryArr[i].split('=');
+      if( typeof queryString[pair[0]] === 'undefined' ) {
+        queryString[pair[0]] = decodeURIComponent(pair[1]);
+      } else if(typeof queryString[pair[0]] === 'string') {
+        var arr = [ queryString[pair[0]], decodeURIComponent(pair[1]) ];
+        queryString[pair[0]] = arr;
       } else {
-        query_string[pair[0]].push(decodeURIComponent(pair[1]));
+        queryString[pair[0]].push(decodeURIComponent(pair[1]));
       }
     }
-    return query_string;
+    return queryString;
   }
   h2m.queryString = queryString;
+
   return global.h2m = h2m;
 }.call(this));

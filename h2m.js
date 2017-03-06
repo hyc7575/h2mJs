@@ -501,5 +501,47 @@
   }
   h2m.queryString = queryString;
 
+  function DateUtil(y, m, d) {
+    this.date = new Date(y, m-1, d);
+    this.dayNames = ['일','월','화','수','목','금','토'];
+    this.dayTimes = 86400000; // 하루 밀리세컨드
+  }
+  DateUtil.prototype.getDate = function() {
+    return this.date;
+  }
+  DateUtil.prototype.setDate = function(y, m, d) {
+    this.date = new Date( y, m -1 , d );
+  }
+  DateUtil.prototype.addDate = function(days) {
+    days = parseInt(days, 10);
+    this.date = new Date(this.date.getTime() + days * this.dayTimes);
+  }
+
+  // static methods
+  DateUtil.format = function(delimiter, date) {
+    // string형태로 반환 format 관련로직 추가 필요
+    if( delimiter === undefined ) {
+      delimiter = '-';
+    }
+    if( date === undefined ) {
+      date = this.date;
+    }
+    var dateObj = this.date,
+        year = dateObj.getFullYear(),
+        month = dateObj.getMonth() + 1,
+        date = dateObj.getDate(),
+        day = this.dayNames[dateObj.getDay()];
+
+    return '' + year + delimiter + month + delimiter + date + ' (' + day + ')'
+  }
+  DateUtil.diffDays = function(date1, date2) {
+    // date1, date2의 날짜 차이 계산
+    return parseInt( Math.abs(date1.getTime() - date2.getTime()), 10 ) + 1;
+  }
+
+
+
+  h2m.DateUtil = DateUtil;
+
   return global.h2m = h2m;
 }.call(this));

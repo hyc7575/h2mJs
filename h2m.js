@@ -486,16 +486,16 @@
         queryArr = query.split('&'),
         i
 
-    for( i = 0; i < queryArr.length; i++ ) {
-      var pair = queryArr[i].split('=');
-      if( typeof queryString[pair[0]] === 'undefined' ) {
-        queryString[pair[0]] = decodeURIComponent(pair[1]);
-      } else if(typeof queryString[pair[0]] === 'string') {
-        var arr = [ queryString[pair[0]], decodeURIComponent(pair[1]) ];
-        queryString[pair[0]] = arr;
-      } else {
-        queryString[pair[0]].push(decodeURIComponent(pair[1]));
-      }
+    for (var i = 0; i < queryArr.length;i++) {
+        var pair = queryArr[i].split("=");
+        if (typeof queryString[pair[0]] === "undefined") {
+            queryString[pair[0]] = pair[1]; // decodeURIComponent(pair[1]);
+        } else if (typeof queryString[pair[0]] === "string") {
+            var arr = [ queryString[pair[0]],pair[1] ]; // decodeURIComponent(pair[1]) ];
+            queryString[pair[0]] = arr;
+        } else {
+            queryString[pair[0]].push( pair[1] ); // decodeURIComponent(pair[1]));
+        }
     }
     return queryString;
   }
@@ -517,16 +517,14 @@
     this.date = new Date(this.date.getTime() + days * this.dayTimes);
   }
 
-  // static methods
-  DateUtil.format = function(delimiter, date) {
+  // static property & Method
+  DateUtil.dayNames = ['일','월','화','수','목','금','토'];
+  DateUtil.format = function(date, format) {
     // string형태로 반환 format 관련로직 추가 필요
-    if( delimiter === undefined ) {
-      delimiter = '-';
-    }
-    if( date === undefined ) {
-      date = this.date;
-    }
-    var dateObj = this.date,
+    var delimiter = format.slice().replace(/[a-z]/gi,'').substr(1),
+        format = format.split(delimiter);
+
+    var dateObj = date,
         year = dateObj.getFullYear(),
         month = dateObj.getMonth() + 1,
         date = dateObj.getDate(),

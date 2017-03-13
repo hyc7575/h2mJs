@@ -10,7 +10,7 @@
         };
     }
 
-    if (!ArrayProto.map) {
+    if (!ArrayProto.map) {``
         ArrayProto.map = function(callback, thisArg) {
             var T, A, k;
             if (this == null) {
@@ -595,6 +595,45 @@
 
 
     h2m.DateUtil = DateUtil;
+
+
+
+
+    function LayerPop( target, isDim ) {
+    	this.$layer = $(target);
+    	this.$closeBtn = this.$layer.find('.layer-close');
+    	this.isDim = isDim;
+
+    	if( isDim && !$('.layer-cover').length ) {
+    		$('body').append('<div class="layer-cover" style="display: none; position: fixed; left: 0; right: 0; top: 0;bottom: 0; background-color: #000; opacity: 0.8; z-index: 9999;"></div>');
+    		this.$dim = $('.layer-cover');
+    	}
+    }
+    LayerPop.prototype.onEvent = function() {
+    	var thiz = this;
+    	this.$closeBtn.on('click', function(e) {
+    		e.preventDefault();
+    		thiz.hide();
+    	});
+    }
+    LayerPop.prototype.offEvent = function() {
+    	this.$closeBtn.off('click');
+    }
+    LayerPop.prototype.show = function() {
+    	this.onEvent();
+
+    	this.$layer.show();
+    	if ( this.isDim ) {
+    		this.$dim.show();
+    	}
+    }
+    LayerPop.prototype.hide = function() {
+    	this.$layer.hide();
+    	if ( this.isDim ) {
+    		this.$dim.hide();
+    	}
+    }
+    h2m.layer = LayerPop;
 
     return global.h2m = h2m;
 }.call(this));

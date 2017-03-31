@@ -10,7 +10,7 @@
         };
     }
 
-    if (!ArrayProto.map) {``
+    if (!ArrayProto.map) {
         ArrayProto.map = function(callback, thisArg) {
             var T, A, k;
             if (this == null) {
@@ -28,7 +28,6 @@
 
             A = new Array(len);
 
-            // 7. Let k be 0
             k = 0;
 
             while (k < len) {
@@ -67,7 +66,6 @@
 
             k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
 
-            // 9. k <len 인 동안 반복한다.
             while (k < len) {
                 if (k in o && o[k] === searchElement) {
                     return k;
@@ -458,13 +456,26 @@
                 osName = 'BlackBerry'
             }
         }
+        
+        // ie 체크 support 9+
+        if (/trident/i.test(ua)) {
+            var ver;
 
-        // ie 체크
-        if (/trident/i.test(M[1])) {
-            tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+            if (ua.indexOf('Trident/7.0') > 0) {
+                ver = 11;
+            } else if (ua.indexOf('Trident/6.0') > 0) {
+                ver = 10;
+            } else if (ua.indexOf('Trident/5.0') > 0) {
+                ver = 9;
+            } else if (ua.indexOf('Trident/4.0') > 0) {
+                ver = 8;
+            } else {
+                ver = 'Unknown';  // not IE8, 9, 10, 11
+            }
+
             return {
                 name: 'IE',
-                version: (tem[1] || ''),
+                version: ver,
                 isMobile: isMobile,
                 os: osName
             };

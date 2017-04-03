@@ -456,7 +456,7 @@
                 osName = 'BlackBerry'
             }
         }
-        
+
         // ie 체크 support 9+
         if (/trident/i.test(ua)) {
             var ver;
@@ -610,20 +610,29 @@
 
 
 
-    function LayerPop( target, isDim ) {
-    	this.$layer = $(target);
+    function LayerPop( obj ) {
+		this.name = obj.target;
+    	this.$layer = $(this.name);
     	this.$closeBtn = this.$layer.find('.layer-close');
-    	this.isDim = isDim;
-
-    	if( isDim && !$('.layer-cover').length ) {
+    	this.$todayChkBox = this.$layer.find('.today-chkbox') || undefined;
+    	this.isDim = obj.isDim || false;
+    	console.log(  )
+    	if( this.isDim && !$('.layer-cover').length ) {
     		$('body').append('<div class="layer-cover" style="display: none; position: fixed; left: 0; right: 0; top: 0;bottom: 0; background-color: #000; opacity: 0.8; z-index: 9999;"></div>');
     		this.$dim = $('.layer-cover');
+    	}
+
+    	if( parseInt(h2m.cookie.get( this.name ), 10) !== 1 ) {
+	    	this.show();
     	}
     }
     LayerPop.prototype.onEvent = function() {
     	var thiz = this;
     	this.$closeBtn.on('click', function(e) {
     		e.preventDefault();
+    		if( thiz.$todayChkBox.prop('checked') ) {
+    			h2m.cookie.set(thiz.name, 1, '/', 1);
+    		}
     		thiz.hide();
     	});
     }

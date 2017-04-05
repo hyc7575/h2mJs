@@ -613,21 +613,27 @@
     function LayerPop( obj ) {
 		this.name = obj.target;
     	this.$layer = $(this.name);
-    	this.$closeBtn = this.$layer.find('.layer-close');
-    	this.$todayChkBox = this.$layer.find('.today-chkbox') || undefined;
+    	this.$closeBtn = this.$layer.find('.layer-close'); // 팝업 클로즈 버튼
+    	this.$todayChkBox = this.$layer.find('.today-chkbox') || undefined; // 오늘 하루 안보기용 체크박스
     	this.isDim = obj.isDim || false;
-    	console.log(  )
+        this.$showTrigger = $(obj.showTrigger) || undefined;
+
     	if( this.isDim && !$('.layer-cover').length ) {
     		$('body').append('<div class="layer-cover" style="display: none; position: fixed; left: 0; right: 0; top: 0;bottom: 0; background-color: #000; opacity: 0.8; z-index: 9999;"></div>');
     		this.$dim = $('.layer-cover');
     	}
 
-    	if( parseInt(h2m.cookie.get( this.name ), 10) !== 1 ) {
+    	if( this.$showTrigger === undefined && parseInt(h2m.cookie.get( this.name ), 10) !== 1 ) {
 	    	this.show();
     	}
+    	this.onEvent();
     }
     LayerPop.prototype.onEvent = function() {
     	var thiz = this;
+        this.$showTrigger.on('click', function() {
+        	console.log(1)
+            thiz.show();
+        });
     	this.$closeBtn.on('click', function(e) {
     		e.preventDefault();
     		if( thiz.$todayChkBox.prop('checked') ) {
@@ -640,8 +646,6 @@
     	this.$closeBtn.off('click');
     }
     LayerPop.prototype.show = function() {
-    	this.onEvent();
-
     	this.$layer.show();
     	if ( this.isDim ) {
     		this.$dim.show();
@@ -653,7 +657,7 @@
     		this.$dim.hide();
     	}
     }
-    h2m.layer = LayerPop;
+    h2m.LayerPop = LayerPop;
 
     return global.h2m = h2m;
 }.call(this));

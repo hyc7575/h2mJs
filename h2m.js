@@ -2,14 +2,19 @@
     'use strict';
 
     var ArrayProto = Array.prototype,
-        ObjProto = Object.prototype;
+        ObjProto = Object.prototype,
+        StringProto = String.prototype;
 
     if (typeof window.console === 'undefined' || typeof window.console.log === 'undefined') { // ie8 console log 객체 생성 (에러 방지)
         global.console = {
             log: function() {}
         };
     }
-
+    if (!StringProto.trim) {
+        StringProto.trim = function () {
+            return this.replace(/^\s+|\s+$/g, '');
+        };
+    }
     if (!ArrayProto.map) {
         ArrayProto.map = function(callback, thisArg) {
             var T, A, k;
@@ -616,14 +621,14 @@
     	this.$closeBtn = this.$layer.find('.layer-close'); // 팝업 클로즈 버튼
     	this.$todayChkBox = this.$layer.find('.today-chkbox') || undefined; // 오늘 하루 안보기용 체크박스
     	this.isDim = obj.isDim || false;
-        this.$showTrigger = $(obj.showTrigger) || undefined;
+        this.$showTrigger = $(obj.showTrigger);
 
     	if( this.isDim && !$('.layer-cover').length ) {
     		$('body').append('<div class="layer-cover" style="display: none; position: fixed; left: 0; right: 0; top: 0;bottom: 0; background-color: #000; opacity: 0.8; z-index: 9999;"></div>');
     		this.$dim = $('.layer-cover');
     	}
-
-    	if( this.$showTrigger === undefined && parseInt(h2m.cookie.get( this.name ), 10) !== 1 ) {
+        console.log(this.$showTrigger.length)
+    	if( !this.$showTrigger.length && parseInt(h2m.cookie.get( this.name ), 10) !== 1 ) {
 	    	this.show();
     	}
     	this.onEvent();

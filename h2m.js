@@ -608,11 +608,7 @@
         return parseInt(Math.abs(date1.getTime() - date2.getTime()), 10) + 1;
     }
 
-
-
     h2m.DateUtil = DateUtil;
-
-
 
 
     function LayerPop( obj ) {
@@ -627,7 +623,7 @@
     		$('body').append('<div class="layer-cover" style="display: none; position: fixed; left: 0; right: 0; top: 0;bottom: 0; background-color: #000; opacity: 0.8; z-index: 9999;"></div>');
     		this.$dim = $('.layer-cover');
     	}
-        console.log(this.$showTrigger.length)
+
     	if( !this.$showTrigger.length && parseInt(h2m.cookie.get( this.name ), 10) !== 1 ) {
 	    	this.show();
     	}
@@ -636,7 +632,6 @@
     LayerPop.prototype.onEvent = function() {
     	var thiz = this;
         this.$showTrigger.on('click', function() {
-        	console.log(1)
             thiz.show();
         });
     	this.$closeBtn.on('click', function(e) {

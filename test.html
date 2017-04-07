@@ -24,12 +24,38 @@
         <span class="layer-close">x</span>
         <p>팝업이다!</p>
     </div>
+    <div class="pop pop2" style="width: 600px; height: 400px; margin: -200px 0 0 -150px;">
+        <span class="layer-close">x</span>
+        <p>팝업이다!2222</p>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="./h2m.js"></script>
     <script>
+        var a = [ 5, 10, 7, 3, 2, 13, 12 ];
+        var b = [ 10, 2, 4, 1, 7, 0, 9];
+        var c = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        var d = [
+            {
+                hi: 'hi',
+                hello: 'hello'
+            },
+            {
+                hi: 'what',
+                jay: 'hohoho'
+            },
+            {
+                hi: 10
+            }
+        ]
+
         var pop1 = new h2m.LayerPop({
             target: '.pop1',
             isDim: false // default
+        });
+        var pop2 = new h2m.LayerPop({
+            target: '.pop2',
+            showTrigger: '#pop2Btn'
         });
     </script>
 </body>

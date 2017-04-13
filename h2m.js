@@ -1,4 +1,4 @@
-(function(global) { //브라우저 별 함수가 다를 경우를 지원하기 위한 영역 (MDN polyfill 참조)
+(function(global) { // ie 하위버전 지원을 위한 polfyfill 및 객체 확장영역 (MDN polyfill 참조)
     'use strict';
 
     var ArrayProto = Array.prototype,
@@ -155,6 +155,7 @@
 
     // Array 확장
     Array.prototype.unique = function() {
+        // array 내에서 중복 값 제거
         var a = this.concat();
         for( var i = 0; i < a.length; ++i ) {
             for( var j = i + 1; j < a.length; ++j ) {
@@ -165,6 +166,12 @@
 
         return a;
     };
+    Array.prototype.intersect = function(arr) {
+        // array1 과 array2의 중복 값 반환 (파라미터 1개만 받을 수 있음)
+        return this.filter(function(v) {
+            return arr.indexOf(v) !== -1;
+        });
+    }
 })(window);
 
 (function() {

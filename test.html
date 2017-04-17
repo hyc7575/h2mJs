@@ -5,27 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <style>
-      .pop {
-          display: none;
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          border: 1px solid #dedede;
-      }
-  </style>
+  <link rel="stylesheet" href="./h2m.css">
 </head>
 <body>
     <button id="pop2Btn">팝업 트리거</button>
-    <div class="pop pop1" style="width: 300px; height: 400px; margin: -200px 0 0 -150px;">
+    <div class="layerPop layerPop1" style="width: 300px; height: 400px; margin: -200px 0 0 -150px;">
         <span class="layer-close">x</span>
         <p>팝업이다!</p>
     </div>
-    <div class="pop pop2" style="width: 600px; height: 400px; margin: -200px 0 0 -150px;">
+    <div class="layerPop layerPop2" style="width: 600px; height: 400px; margin: -200px 0 0 -150px;">
         <span class="layer-close">x</span>
         <p>팝업이다!2222</p>
     </div>
-    <div class="pop pop3" style="width: 600px; height: 400px; margin: -200px 0 0 -150px;">
+    <div class="layerPop layerPop3" style="width: 600px; height: 400px; margin: -200px 0 0 -150px;">
         <span class="layer-close">x</span>
         <p>팝업팝업</p>
         <div>
@@ -57,11 +49,11 @@
         ]
 
         var pop1 = new h2m.LayerPop({
-            target: '.pop1',
+            target: '.layerPop1',
             isDim: false // default
         });
         var pop2 = new h2m.LayerPop({
-            target: '.pop2',
+            target: '.layerPop2',
             showTrigger: '#pop2Btn'
         });
         // var pop3 = new h2m.LayerPop({

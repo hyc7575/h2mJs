@@ -638,6 +638,7 @@
     	this.$todayChkBox = this.$layer.find('.today-chkbox') || undefined; // 오늘 하루 안보기용 체크박스
     	this.isDim = obj.isDim || false;
         this.$showTrigger = $(obj.showTrigger);
+        this.callback = obj.callback || {};
 
     	if( this.isDim && !$('.layer-cover').length ) {
     		$('body').append('<div class="layer-cover" style="display: none; position: fixed; left: 0; right: 0; top: 0;bottom: 0; background-color: #000; opacity: 0.8; z-index: 9999;"></div>');
@@ -660,6 +661,7 @@
     			h2m.cookie.set(thiz.name, 1, '/', 1);
     		}
     		thiz.hide();
+            thiz.callback.close();
     	});
     }
     LayerPop.prototype.offEvent = function() {

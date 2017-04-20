@@ -590,46 +590,51 @@
     }
     h2m.queryString = queryString;
 
-
-    /* Date util */
-    function DateUtil(y, m, d) {
-        this.date = new Date(y, m - 1, d);
-        this.dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-        this.dayTimes = 86400000; // 하루 밀리세컨드
-    }
-    DateUtil.prototype.getDate = function() {
-        return this.date;
-    }
-    DateUtil.prototype.setDate = function(y, m, d) {
-        this.date = new Date(y, m - 1, d);
-    }
-    DateUtil.prototype.addDate = function(days) {
-        days = parseInt(days, 10);
-        this.date = new Date(this.date.getTime() + days * this.dayTimes);
-    }
-
-    // static property & Method
-    DateUtil.dayNames = ['일', '월', '화', '수', '목', '금', '토'];
-    DateUtil.format = function(date, format) {
-        // string형태로 반환 format 관련로직 추가 필요
-        var delimiter = format.slice().replace(/[a-z]/gi, '').substr(1),
-            format = format.split(delimiter);
-
-        var dateObj = date,
-            year = dateObj.getFullYear(),
-            month = dateObj.getMonth() + 1,
-            date = dateObj.getDate(),
-            day = this.dayNames[dateObj.getDay()];
-
-        return '' + year + delimiter + month + delimiter + date + ' (' + day + ')'
-    }
-    DateUtil.diffDays = function(date1, date2) {
-        // date1, date2의 날짜 차이 계산
-        return parseInt(Math.abs(date1.getTime() - date2.getTime()), 10) + 1;
-    }
-
-    h2m.DateUtil = DateUtil;
-
+    //
+    // /* Date util */
+    // function DateUtil(y, m, d) {
+    //     this.date = new Date(y, m - 1, d);
+    //     this.dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+    //     this.dayTimes = 86400000; // 하루 밀리세컨드
+    // }
+    // DateUtil.prototype.getDate = function() {
+    //     return this.date;
+    // }
+    // DateUtil.prototype.setDate = function(y, m, d) {
+    //     this.date = new Date(y, m - 1, d);
+    // }
+    // DateUtil.prototype.addDate = function(days) {
+    //     days = parseInt(days, 10);
+    //     this.date = new Date(this.date.getTime() + days * this.dayTimes);
+    // }
+    //
+    // // static property & Method
+    // DateUtil.dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+    // DateUtil.format = function(date, format) {
+    //     // string형태로 반환 format 관련로직 추가 필요
+    //     var delimiter = format.slice().replace(/[a-z]/gi, '').substr(0,1);
+    //         //format = format.split(delimiter);
+    //
+    //
+    //
+    //     var dateObj = date,
+    //         year = dateObj.getFullYear(),
+    //         month = dateObj.getMonth() + 1,
+    //         date = dateObj.getDate(),
+    //         day = this.dayNames[dateObj.getDay()];
+    //
+    //     return '' + year + delimiter + month + delimiter + date + (format.indexOf('ddd') !== -1 ? ' (' + day + ')' : '')
+    // }
+    // DateUtil.diffDays = function(date1, date2) {
+    //     // date1, date2의 날짜 차이 계산
+    //     date1.setHours(0,0,0,0);
+    //     date2.setHours(0,0,0,0);
+    //
+    //     return parseInt( Math.abs(date1.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24) , 10 );
+    // }
+    //
+    // h2m.DateUtil = DateUtil;
+    //
 
     function LayerPop( obj ) {
 		this.name = obj.target;

@@ -1,15 +1,19 @@
-(function(global) { // ie 하위버전 지원을 위한 polfyfill 및 객체 확장영역 (MDN polyfill 참조)
+// ie 하위버전 지원을 위한 polfyfill 및 객체 확장영역 (MDN polyfill 참조)
+(function(global) {
     'use strict';
 
     var ArrayProto = Array.prototype,
         ObjProto = Object.prototype,
         StringProto = String.prototype;
 
-    if (typeof window.console === 'undefined' || typeof window.console.log === 'undefined') { // ie8 console log 객체 생성 (에러 방지)
+    // ie8 console log 객체 생성 (에러 방지)
+    if (typeof window.console === 'undefined' || typeof window.console.log === 'undefined') {
         global.console = {
             log: function() {}
         };
     }
+
+    // 문자열 앞, 뒤 공백 제거
     if (!StringProto.trim) {
         StringProto.trim = function () {
             return this.replace(/^\s+|\s+$/g, '');
@@ -189,16 +193,16 @@
     }
     h2m.hasVerticalScroll = hasVerticalScroll;
 
+    // 숫자에 ',' 붙여서 string형태로 return
     function addComma(num) {
-        // 가격에 , 붙여서 string형태로 return
         num = '' + num;
         return num.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
     }
 
-    function removeComma(str) {
-        // 가격에 , 삭제하여 number형태로 return
-        str = '' + str;
-        return parseInt(str.replace(/,/g, ''), 10);
+    // 숫자에 ',' 삭제하여 number형태로 return
+    function removeComma(num) {
+        num = '' + num;
+        return parseInt(num.replace(/,/g, ''), 10);
     }
     h2m.addComma = addComma;
     h2m.removeComma = removeComma;
@@ -211,7 +215,8 @@
 
 
 
-    // object의 key 개수
+    // object의 key 개수 구하는 함수
+    // return {number}
     function objectSize(obj) {
         return Object.keys(obj).length;
     }
@@ -397,10 +402,17 @@
     h2m.isArray = isArray;
 
 
+
     /* validate */
+
+    /**
+     * @description 핸드폰 번호 자동으로 하이픈 처리
+     * @param  {string} str 전화번호
+     * @return {string}
+     */
     function autoHypenPhone(str) {
         // input bind keyup event
-        // 핸드폰 번호 자동으로 하이픈 처리
+        //
         str = str.replace(/[^0-9]/g, '');
         var tmp = '';
         if (str.length < 4) {
@@ -428,8 +440,13 @@
         return str;
     }
 
+
+    /**
+     * @description 휴대폰 번호 정규식 체크
+     * @param {string} str 전화번호
+     * @return {boolean}
+     */
     function chkPhoneTel(str) {
-        // 핸드폰 형식 정규식
         var reg = /^(01[016789]{1}|070|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/;
         return reg.test(str);
     }
@@ -438,9 +455,23 @@
     h2m.validate = {}
     h2m.validate.chkPhoneTel = chkPhoneTel;
 
-    /* browser, os and ... info */
+
+
+
+    /**
+     * @typedef platform
+     * @type {Object}
+     * @property {string} name 브라우저 이름
+     * @property {string} ver 브라우저 버전
+     * @property {boolean} isMobile 모바일 체크
+     * @property {string} os os 이름
+     */
+
+    /**
+     * @description 브라우저 정보, os 정보 등 객체 반환하는 함수
+     * @return {platform}
+     */
     function platformInfo() {
-        // 브라우저 정보 객체를 반환 하는 함수
         var ua = navigator.userAgent.toLowerCase(),
             av = navigator.appVersion,
             tem,
@@ -487,13 +518,13 @@
             var ver;
 
             if (ua.indexOf('Trident/7.0') > 0) {
-                ver = 11;
+                ver = '11';
             } else if (ua.indexOf('Trident/6.0') > 0) {
-                ver = 10;
+                ver = '10';
             } else if (ua.indexOf('Trident/5.0') > 0) {
-                ver = 9;
+                ver = '9';
             } else if (ua.indexOf('Trident/4.0') > 0) {
-                ver = 8;
+                ver = '8';
             } else {
                 ver = 'Unknown';  // not IE8, 9, 10, 11
             }
@@ -534,8 +565,24 @@
     h2m.platform = platformInfo;
 
 
-    /* cookie method object */
+
+    /**
+     * @typedef cookieObject
+     * @type {Object}
+     * @property {Function} get
+     * @property {Function} set
+     * @property {Function} del
+     */
+
+    /**
+     * @description 쿠키 관련 함수 모음
+     * @return {cookieObject} 쿠키 메서드 오브젝트
+     */
     function cookie() {
+        /**
+         * @param  {string} cname 가져올 쿠키 이름
+         * @return {string}
+         */
         function getCookie(cname) {
             var value = '; ' + document.cookie;
             var parts = value.split('; ' + cname + '=');
@@ -545,6 +592,14 @@
             }
         }
 
+
+        /**
+         * @description 쿠키 저장
+         * @param  {string} cname 저장할 쿠키 이름
+         * @param  {*} value 쿠키 값
+         * @param  {string} path 쿠키 사용 경로 (일반적으로 루트 사용 '/')
+         * @param  {number} days 쿠키 만료 기간 설정
+         */
         function setCookie(cname, value, path, days) {
             var date, expires;
             if (days) {
@@ -557,6 +612,12 @@
             document.cookie = cname + '=' + value + expires + ';path=' + path + ';';
         }
 
+
+        /**
+         * @description 쿠키 삭제
+         * @param  {string} cname 삭제할 쿠키 이름
+         * @param  {string} path  삭제할 쿠키 경로
+         */
         function delCookie(cname, path) {
             document.cookie = cname + '=;path=' + path + '; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         }
@@ -568,7 +629,11 @@
     }
     h2m.cookie = cookie();
 
-    /* url querystring */
+
+    /**
+     * @description url 파라미터를 객체 key value 형태로 뽑아주는 함수 ex) wdgbook.com?q=2&content=testContent > { q: 2, content: 'testContent'}
+     * @return {Object}
+     */
     function queryString() {
         var queryString = {},
             query = global.location.search.substring(1),

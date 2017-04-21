@@ -6,6 +6,19 @@
         ObjProto = Object.prototype,
         StringProto = String.prototype;
 
+    var host = location.host;
+
+    var oldConsole = Object.assign({}, global.console);
+    (function(oc) {
+        global.console.log = function(txt) {
+            if( host.indexOf('localhost') !== -1 || host.indexOf('h2m.io') !== -1 ) {
+                oc.log(txt)
+            } else {
+                oc.log('안돼 저리가 쓰지마 콘솔없어');
+            }
+        }
+    })(oldConsole);
+
     // ie8 console log 객체 생성 (에러 방지)
     if (typeof window.console === 'undefined' || typeof window.console.log === 'undefined') {
         global.console = {
@@ -631,7 +644,9 @@
 
 
     /**
-     * @description url 파라미터를 객체 key value 형태로 뽑아주는 함수 ex) wdgbook.com?q=2&content=testContent > { q: 2, content: 'testContent'}
+     * @description url 파라미터를 객체 key value 형태로 뽑아주는 함수
+     * @example
+     * querystring() // http://www.wdgbook.com?q=2&content=testContent, return { q: 2, content: 'testContent'}
      * @return {Object}
      */
     function queryString() {

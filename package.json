@@ -1,6 +1,6 @@
 {
   "name": "h2m-javascript",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "h2m javascript common library",
   "main": "h2m.js",
   "scripts": {

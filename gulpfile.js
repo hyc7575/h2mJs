@@ -14,7 +14,14 @@ gulp.task('watch', function() {
     gulp.watch(path.js, ['combine-js'])
 });
 gulp.task('combine-js', function() {
-    return gulp.src(path.js)
+    return gulp.src([
+        'src/js/polyfill.js',
+        'src/js/define.js',
+        'src/js/h2m.js',
+        'src/js/cookie.js',
+        'src/js/platformUtil.js',
+        'src/js/stringUtil.js'
+    ])
         .pipe(plumber(function(err) {
             gutil.log(err.message);
         }))

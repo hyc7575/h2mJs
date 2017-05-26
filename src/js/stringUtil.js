@@ -60,8 +60,6 @@
         return str;
     }
 
-
-
     /**
      * @description 휴대폰 번호 정규식 체크
      * @param {string} str 전화번호
@@ -79,6 +77,38 @@
      * @example
      * querystring() // http://www.wdgbook.com?q=2&content=testContent, return { q: 2, content: 'testContent'}
      * @return {Object}
+     */
+
+
+
+
+    /**
+     * @description 특정 기호 convert
+     * @param  {string} str 문자열
+     * @return {string}     컨비팅 된 문자열
+     */
+    function escapeHtml(str) {
+        var entityMap = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+            '/': '&#x2F;',
+            '`': '&#x60;',
+            '=': '&#x3D;'
+        };
+        return String(str).replace(/[&<>"'`=\/]/g, function (s) {
+            return entityMap[s];
+        });
+    }
+    string.escapeHtml = escapeHtml;
+
+
+
+    /**
+     * @description url 쿼리스트링 값 가공
+     * @return {Object}  쿼리스트링 key value형태
      */
     function queryString() {
         var queryString = {},

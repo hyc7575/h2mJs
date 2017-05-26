@@ -2,10 +2,31 @@
 
 매우매우매우 초기버전, 그냥 생각나는 기능 추가하는 중
 
-## 설치
+## install
 ```
 npm i h2m-javascript
 ```
+## Polyfill List
+- String.prototype.trim
+- Array.prototype.map
+- Array.prototype.indexOf
+- Array.prototype.filter
+- Object.keys
+
+## Built-in Object expansion
+- Array.prototype.unique
+```javascript
+var arr = [1,1,2,2,2,2,5];
+arr.unique(); // [1,2,5]
+```
+This function can remove duplicate values
+
+- Array.prototype.intersect
+```javascript
+var arr = [1,2,3,4,5,6];
+arr.intersect([5,6,7,8,9]); // [5,6];
+```
+ps - only one parameter can be received, Multiple parameters are available in Array util
 
 ## String Util
 
@@ -62,10 +83,10 @@ Platform-info Util has one function. This is the jsdoc of platform-info Util
 /**
  * @typedef platform
  * @type {Object}
- * @property {string} name of browser
- * @property {string} ver of browser
- * @property {boolean} isMobile
- * @property {string} name of os
+ * @property {string} name  name of browser
+ * @property {string} ver  version of browser
+ * @property {boolean} isMobile check if it's mobile or not
+ * @property {string} os name of os
  */
 
 /**
@@ -78,6 +99,15 @@ Platform-info Util has one function. This is the jsdoc of platform-info Util
 ```
 ps - can detect IE 8+
 
+
+## Cookie Util
+```javascript
+var cookieFnc = h2m.cookie;
+// set( cname, value, path, expireDays )
+cookieFnc.set('cookieName', 'value', '/', 1);
+cookieFnc.get('cookieName');
+cookieFnc.del('cookieName', '/');
+```
 
 ---
 

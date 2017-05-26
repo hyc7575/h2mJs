@@ -76,4 +76,4 @@ Platform-info Util has one function. This is the jsdoc of platform-info Util
  // Usage
  var platform = h2m.platform(); // return example, {name: "chrome", version: "58", isMobile: false, os: "MacOS"}
 ```
-* can detect IE 8+
+ps - can detect IE 8+

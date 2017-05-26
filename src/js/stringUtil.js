@@ -73,16 +73,6 @@
     string.chkPhoneTel = chkPhoneTel;
 
     /**
-     * @description url 파라미터를 객체 key value 형태로 뽑아주는 함수
-     * @example
-     * querystring() // http://www.wdgbook.com?q=2&content=testContent, return { q: 2, content: 'testContent'}
-     * @return {Object}
-     */
-
-
-
-
-    /**
      * @description 특정 기호 convert
      * @param  {string} str 문자열
      * @return {string}     컨비팅 된 문자열
@@ -105,10 +95,11 @@
     string.escapeHtml = escapeHtml;
 
 
-
     /**
-     * @description url 쿼리스트링 값 가공
-     * @return {Object}  쿼리스트링 key value형태
+     * @description url 파라미터를 객체 key value 형태로 뽑아주는 함수
+     * @example
+     * querystring() // http://www.wdgbook.com?q=2&content=testContent, return { q: 2, content: 'testContent'}
+     * @return {Object}
      */
     function queryString() {
         var queryString = {},

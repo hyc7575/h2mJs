@@ -52,6 +52,7 @@ h2m.string.chkPhoneTel('070-1234-5678'); // true
 ```
 
 - escapeHtml
+
 syntax : h2m.string.escapeHtml(str[,arr]);
 ```javascript
 /**

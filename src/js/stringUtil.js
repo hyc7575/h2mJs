@@ -77,18 +77,21 @@
      * @param  {string} str 문자열
      * @return {string}     컨비팅 된 문자열
      */
-    function escapeHtml(str) {
+    function escapeHtml(str, arr) {
         var entityMap = {
             '&': '&amp;',
             '<': '&lt;',
             '>': '&gt;',
             '"': '&quot;',
             "'": '&#39;',
-            '/': '&#x2F;',
-            '`': '&#x60;',
-            '=': '&#x3D;'
+            '/': '&#47;',
+            '`': '&#96;',
+            '=': '&#61;'
         };
         return String(str).replace(/[&<>"'`=\/]/g, function (s) {
+            if( !!arr && arr.indexOf(s) === -1 ) {
+                return s;
+            }
             return entityMap[s];
         });
     }

@@ -52,21 +52,24 @@ h2m.string.chkPhoneTel('070-1234-5678'); // true
 ```
 
 - escapeHtml
+syntax : h2m.string.escapeHtml(str[,arr]);
 ```javascript
 /**
- * entity
+ * entities
  * ----------------------------
- *      & : '&amp;'
- *      < : '&lt;'
- *      > : '&gt;'
- *      " : '&quot;'
- *      ' : '&#39;'
- *      / : '&#x2F;'
- *      ` : '&#x60;'
- *      = : '&#x3D;'
+ *     & : '&amp;',
+ *     < : '&lt;',
+ *     > : '&gt;',
+ *     " : '&quot;',
+ *     ' : '&#39;',
+ *     / : '&#47;',
+ *     ` : '&#96;',
+ *     = : '&#61;'
  * ----------------------------
  */
 h2m.string.escapeHtml('<div class="intro">안녕</div>'); // "&lt;div class&#x3D;&quot;intro&quot;&gt;안녕&lt;&#x2F;div&gt;"
+h2m.string.escapeHtml('<div class="intro">안녕</div>', []); // "<div class="intro">안녕</div>"
+h2m.string.escapeHtml('<div class="intro">안녕</div>', ['<','>','/']); // "&lt;div class="intro"&gt;안녕&lt;&#47;div&gt;"
 ```
 
 - queryString

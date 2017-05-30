@@ -12,6 +12,7 @@ npm i h2m-javascript
 - Array.prototype.indexOf
 - Array.prototype.filter
 - Object.keys
+- Object.assign
 
 ## Built-in Object expansion
 - Array.prototype.unique
@@ -27,6 +28,20 @@ var arr = [1,2,3,4,5,6];
 arr.intersect([5,6,7,8,9]); // [5,6];
 ```
 ps - only one parameter can be received, Multiple parameters are available in Array util
+
+## console
+- consoleOnlyLocal
+```javascript
+console.log(1000); // 1000
+h2m.consoleOnlyLocal();
+// console -> Object {log: function}
+// If not localhost
+console.log(1000); // console use only localhost
+console.log('abcd'); // console use only localhost
+// If localhost
+console.log(1000); // 1000
+```
+
 
 ## String Util
 
@@ -113,6 +128,52 @@ cookieFnc.get('cookieName');
 cookieFnc.del('cookieName', '/');
 ```
 
+## Array & Object Util
+- sortObjectByKey
+```javascript
+h2m.obj.sortObjectByKey({
+	canada: 'some value',
+	spain: 'some value',
+	korea: 'some value!',
+	angola: 'some value'
+});
+// return [ ['angola', 'some value'], ['canada', 'some value'], ['korea', 'some value!'], ['spain', 'some value'] ]
+```
+
+- plunkSelectKey
+```javascript
+h2m.array.plunkSelectKey( [ {name: 'hyeok'}, {name: 'jason', age: 22}, {age: 20}  ], 'name' ); // ['hyeok', 'jason', undefined]
+h2m.array.plunkSelectKey( [ {name: 'hyeok'}, {name: 'jason', age: 22}, {age: 20}  ], 'age' ); // [undefined, 22, 20]
+```
+
+- arrayMap
+```javascript
+var arr = [1, 4, 9];
+h2m.array.arrayMap(arr, Math.sqrt); // [1, 2, 3]
+console.log(arr); // [1, 4, 9]
+h2m.array.arrayMap(arr, function(v, i, array) {
+	// v: currentValue, i : index, array: original array
+	return v * v;
+}); // [1, 16, 81]
+　
+var kvArray = [{key:1, value:10}, {key:2, value:20}, {key:3, value: 30}];
+h2m.array.arrayMap(kvArray, function(obj){
+   var rObj = {};
+   rObj[obj.key] = obj.value;
+   return rObj;
+}); // [{1: 10}, {2: 20}, {3: 30}]
+```
+same as Array.prototype.map
+
+- arrayIntersect
+```javascript
+var a = [1, 2, 3, 4, 5];
+var b = [3, 4, 7, 9];
+var c = [3, 4, 5, 6, 7];
+h2m.array.arrayIntersect(a, b, c); // [3, 4]
+var d = [1, 4, 9, 16];
+h2m.array.arrayIntersect(a, b, c, d); // [4]
+```
 ---
 
 Readme is still working

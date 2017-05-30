@@ -18,6 +18,7 @@ gulp.task('combine-js', function() {
         'src/js/polyfill.js',
         'src/js/define.js',
         'src/js/h2m.js',
+		'src/js/console.js',
         'src/js/cookie.js',
         'src/js/platformUtil.js',
         'src/js/stringUtil.js'

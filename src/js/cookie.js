@@ -1,7 +1,19 @@
 (function() {
     'use strict';
     var global = this;
-    
+
+    /**
+     * @typedef cookieObject
+     * @type {Object}
+     * @property {Function} get
+     * @property {Function} set
+     * @property {Function} del
+     */
+
+    /**
+     * @description 쿠키 관련 함수 모음
+     * @return {cookieObject} 쿠키 메서드 오브젝트
+     */
     function cookie() {
         /**
          * @param  {string} cname 가져올 쿠키 이름

@@ -6,18 +6,28 @@
         ObjProto = Object.prototype,
         StringProto = String.prototype;
 
-    var host = location.host;
-
-    var oldConsole = Object.assign({}, global.console);
-    (function(oc) {
-        global.console.log = function(txt) {
-            if( host.indexOf('localhost') !== -1 || host.indexOf('h2m.io') !== -1 ) {
-                oc.log(txt)
-            } else {
-                oc.log('안돼 저리가 쓰지마 콘솔없어');
-            }
-        }
-    })(oldConsole);
+    if (typeof Object.assign != 'function') {
+        (function() {
+            Object.assign = function(target) {
+                'use strict';
+                if (target === undefined || target === null) {
+                    throw new TypeError('Cannot convert undefined or null to object');
+                }
+                var output = Object(target);
+                for (var index = 1; index < arguments.length; index++) {
+                    var source = arguments[index];
+                    if (source !== undefined && source !== null) {
+                        for (var nextKey in source) {
+                            if (source.hasOwnProperty(nextKey)) {
+                                output[nextKey] = source[nextKey];
+                            }
+                        }
+                    }
+                }
+                return output;
+            };
+        })();
+    }
 
     // ie8 console log 객체 생성 (에러 방지)
     if (typeof window.console === 'undefined' || typeof window.console.log === 'undefined') {

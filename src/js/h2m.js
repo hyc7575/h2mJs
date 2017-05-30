@@ -4,6 +4,7 @@
     var global = this;
 
     var array = {};
+	var obj = {};
     var ArrayProto = Array.prototype,
         ObjProto = Object.prototype;
 
@@ -32,7 +33,7 @@
         }
         return result;
     }
-    h2m.sortObjectByKey = sortObjectByKey;
+    obj.sortObjectByKey = sortObjectByKey;
 
 
     //array
@@ -190,21 +191,6 @@
     array.isArray = isArray;
 
 
-    /**
-     * @typedef cookieObject
-     * @type {Object}
-     * @property {Function} get
-     * @property {Function} set
-     * @property {Function} del
-     */
-
-    /**
-     * @description 쿠키 관련 함수 모음
-     * @return {cookieObject} 쿠키 메서드 오브젝트
-     */
-
-
-
     //
     // /* Date util */
     // function DateUtil(y, m, d) {
@@ -252,4 +238,5 @@
     //
 
     global.h2m.array = array;
+	global.h2m.obj = obj;
 }.call(this));

@@ -33,8 +33,7 @@ ps - only one parameter can be received, Multiple parameters are available in Ar
 - consoleOnlyLocal
 ```javascript
 console.log(1000); // 1000
-h2m.consoleOnlyLocal();
-// console -> Object {log: function}
+h2m.consoleOnlyLocal(); // console -> Object {log: function}
 // If not localhost
 console.log(1000); // console use only localhost
 console.log('abcd'); // console use only localhost

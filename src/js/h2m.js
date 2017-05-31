@@ -100,28 +100,13 @@
                 throw new TypeError('arguments[' + al + '] is not array');
             }
         }
-
-        var i, j,
-            shortArray = getShortArray(arguments)[0],
-            len = shortArray.length,
-            result = [],
-            selectedItem,
-            chkHaveItem;
-
-        for (i = 0; i < len; i++) {
-            selectedItem = shortArray[i];
-            chkHaveItem = true;
-            for (j = 0; j < arguments.length; j++) {
-                if (arrayIndexOf(arguments[j], selectedItem) === -1) {
-                    chkHaveItem = false;
-                    break;
-                }
-            }
-            if (chkHaveItem && arrayIndexOf(result, selectedItem) === -1) {
-                result.push(selectedItem);
-            }
-        }
-        return result;
+		var arrs = ArrayProto.slice.call(arguments);
+		var result = arrs.shift().filter(function(v) {
+			return arrs.every(function(a) {
+				return a.indexOf(v) !== -1;
+			});
+		});
+		return result;
     }
 
     function arrayIndexOf(array, searchItem, fromIndex) {

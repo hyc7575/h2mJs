@@ -53,7 +53,12 @@ var num = h2m.string.removeComma(price); // 175000
 
 - leaveOnlyNumber
 ```javascript
-var number = h2m.string.leaveOnlyNumber('ab1cd2ef3gh4') // 1234
+/**
+ * @params {string} val - target value
+ * @params {string} except - except value, can leave other string
+ */
+var number = h2m.string.leaveOnlyNumber('ab1cd2ef3gh4'); // 1234
+var number2 = h2m.string.leaveOnlyNumber('ab1-cd2-ef3-gh4', '-ef'); // 1-2-ef3-4
 ```
 
 - chkPhoneTel

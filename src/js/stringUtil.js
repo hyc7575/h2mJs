@@ -18,8 +18,10 @@
     string.removeComma = removeComma;
 
     // 숫자를 제외하고 전부 삭제해서 return
-    function leaveOnlyNumber(val) {
-        return val.replace(/[^0-9\-]/gi, '');
+    function leaveOnlyNumber(val, except) {
+        var r = new RegExp( '[^0-9' + (except ? '\\' + except : '') + ']', 'gi' );
+        return val.replace( r , '');
+        // return val.replace(/[^0-9\-]/gi, '');
     }
     string.leaveOnlyNumber = leaveOnlyNumber;
 

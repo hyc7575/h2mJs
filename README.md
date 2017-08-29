@@ -61,6 +61,20 @@ var number = h2m.string.leaveOnlyNumber('ab1cd2ef3gh4'); // 1234
 var number2 = h2m.string.leaveOnlyNumber('ab1-cd2-ef3-gh4', '-ef'); // 1-2-ef3-4
 ```
 
+- autoHypenPhone
+```javascript
+/**
+ * @params {string} val target value
+ */
+var number = h2m.string.autoHypenPhone('01012345678'); // 010-1234-5678
+var number2 = h2m.string.autoHypenPhone('0104567890'); // 010-456-7890
+
+// key event
+document.getElementById('myInput').onkeyup = function() {
+    this.value = h2m.string.autoHypenPhone( this.value );
+}
+```
+
 - chkPhoneTel
 ```javascript
 h2m.string.chkPhoneTel('010-1234-5678'); // true

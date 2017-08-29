@@ -1,0 +1,112 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@3.10.10
+3 info using node@v6.10.3
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/Users/keunhyeok/Documents/hyeokFolder/h2mJs',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/keunhyeok/.npm/h2m-javascript/1.0.8/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/keunhyeok/.npm correctMkdir not in flight; initializing
+10 info lifecycle h2m-javascript@1.0.8~prepublish: h2m-javascript@1.0.8
+11 silly lifecycle h2m-javascript@1.0.8~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/keunhyeok/.npm/h2m-javascript/1.0.8/package.tgz',
+12 verbose tar pack   '/Users/keunhyeok/Documents/hyeokFolder/h2mJs' ]
+13 verbose tarball /Users/keunhyeok/.npm/h2m-javascript/1.0.8/package.tgz
+14 verbose folder /Users/keunhyeok/Documents/hyeokFolder/h2mJs
+15 verbose addLocalTarball adding from inside cache /Users/keunhyeok/.npm/h2m-javascript/1.0.8/package.tgz
+16 verbose correctMkdir /Users/keunhyeok/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd h2m-javascript@1.0.8
+18 verbose afterAdd /Users/keunhyeok/.npm/h2m-javascript/1.0.8/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/keunhyeok/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/keunhyeok/.npm/h2m-javascript/1.0.8/package/package.json written
+21 silly publish { name: 'h2m-javascript',
+21 silly publish   version: '1.0.8',
+21 silly publish   description: 'h2m javascript common library',
+21 silly publish   main: 'h2m.js',
+21 silly publish   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+21 silly publish   repository: { type: 'git', url: 'git+https://github.com/hyc7575/h2mJs.git' },
+21 silly publish   author: '',
+21 silly publish   license: 'ISC',
+21 silly publish   bugs: { url: 'https://github.com/hyc7575/h2mJs/issues' },
+21 silly publish   homepage: 'https://github.com/hyc7575/h2mJs#readme',
+21 silly publish   devDependencies:
+21 silly publish    { gulp: '^3.9.1',
+21 silly publish      'gulp-concat': '^2.6.1',
+21 silly publish      'gulp-plumber': '^1.1.0',
+21 silly publish      'gulp-strip-debug': '^1.1.0',
+21 silly publish      'gulp-uglify': '^2.1.2',
+21 silly publish      'gulp-util': '^3.0.8',
+21 silly publish      'gulp-watch': '^4.3.11' },
+21 silly publish   readme: '# 하우투메리 자바스크립트 라이브러리\n\n매우매우매우 초기버전, 그냥 생각나는 기능 추가하는 중\n\n## install\n```\nnpm i h2m-javascript\n```\n## Polyfill List\n- String.prototype.trim\n- Array.prototype.map\n- Array.prototype.indexOf\n- Array.prototype.filter\n- Object.keys\n- Object.assign\n\n## Built-in Object expansion\n- Array.prototype.unique\n```javascript\nvar arr = [1,1,2,2,2,2,5];\narr.unique(); // [1,2,5]\n```\nThis function can remove duplicate values\n\n- Array.prototype.intersect\n```javascript\nvar arr = [1,2,3,4,5,6];\narr.intersect([5,6,7,8,9]); // [5,6];\n```\nps - only one parameter can be received, Multiple parameters are available in Array util\n\n## console\n- consoleOnlyLocal\n```javascript\nconsole.log(1000); // 1000\nh2m.consoleOnlyLocal(); // console -> Object {log: function}\n// If not localhost\nconsole.log(1000); // console use only localhost\nconsole.log(\'abcd\'); // console use only localhost\n// If localhost\nconsole.log(1000); // 1000\n```\n\n\n## String Util\n\n- addComma & removeComma\n```javascript\n// @params {string|number}\nvar price = h2m.string.addComma(175000); // 175,000\nvar num = h2m.string.removeComma(price); // 175000\n```\n\n- leaveOnlyNumber\n```javascript\n/**\n * @params {string} val - target value\n * @params {string} except - except value, can leave other string\n */\nvar number = h2m.string.leaveOnlyNumber(\'ab1cd2ef3gh4\'); // 1234\nvar number2 = h2m.string.leaveOnlyNumber(\'ab1-cd2-ef3-gh4\', \'-ef\'); // 1-2-ef3-4\n```\n\n- chkPhoneTel\n```javascript\nh2m.string.chkPhoneTel(\'010-1234-5678\'); // true\nh2m.string.chkPhoneTel(\'019-123-4567\'); // true\nh2m.string.chkPhoneTel(\'031-123-4567\'); // true\nh2m.string.chkPhoneTel(\'02-1234-5678\'); // true\nh2m.string.chkPhoneTel(\'070-1234-5678\'); // true\n```\n\n- escapeHtml\n\nsyntax : h2m.string.escapeHtml(str[,arr]);\n```javascript\n/**\n * entities\n * ----------------------------\n *     & : \'&amp;\',\n *     < : \'&lt;\',\n *     > : \'&gt;\',\n *     " : \'&quot;\',\n *     \' : \'&#39;\',\n *     / : \'&#47;\',\n *     ` : \'&#96;\',\n *     = : \'&#61;\'\n * ----------------------------\n */\nh2m.string.escapeHtml(\'<div class="intro">안녕</div>\'); // "&lt;div class&#x3D;&quot;intro&quot;&gt;안녕&lt;&#x2F;div&gt;"\nh2m.string.escapeHtml(\'<div class="intro">안녕</div>\', []); // "<div class="intro">안녕</div>"\nh2m.string.escapeHtml(\'<div class="intro">안녕</div>\', [\'<\',\'>\',\'/\']); // "&lt;div class="intro"&gt;안녕&lt;&#47;div&gt;"\n```\n\n- queryString\n```javascript\n// If the url is http://example.com?name=hyeok&age=20\nvar queryStringObj = h2m.string.queryString(); // { name: \'hyeok\', age: \'20\' }\n```\n\n\n## Platform-info Util\n\nPlatform-info Util has one function. This is the jsdoc of platform-info Util\n```javascript\n/**\n * @typedef platform\n * @type {Object}\n * @property {string} name  name of browser\n * @property {string} ver  version of browser\n * @property {boolean} isMobile check if it\'s mobile or not\n * @property {string} os name of os\n */\n\n/**\n * @description return objects such as browser information, os information\n * @return {platform}\n */\n\n // Usage\n var platform = h2m.platform(); // return example, {name: "chrome", version: "58", isMobile: false, os: "MacOS"}\n```\nps - can detect IE 8+\n\n\n## Cookie Util\n```javascript\nvar cookieFnc = h2m.cookie;\n// set( cname, value, path, expireDays )\ncookieFnc.set(\'cookieName\', \'value\', \'/\', 1);\ncookieFnc.get(\'cookieName\');\ncookieFnc.del(\'cookieName\', \'/\');\n```\n\n## Array & Object Util\n- sortObjectByKey\n```javascript\nh2m.obj.sortObjectByKey({\n\tcanada: \'some value\',\n\tspain: \'some value\',\n\tkorea: \'some value!\',\n\tangola: \'some value\'\n});\n// return [ [\'angola\', \'some value\'], [\'canada\', \'some value\'], [\'korea\', \'some value!\'], [\'spain\', \'some value\'] ]\n```\n\n- plunkSelectKey\n```javascript\nh2m.array.plunkSelectKey( [ {name: \'hyeok\'}, {name: \'jason\', age: 22}, {age: 20}  ], \'name\' ); // [\'hyeok\', \'jason\', undefined]\nh2m.array.plunkSelectKey( [ {name: \'hyeok\'}, {name: \'jason\', age: 22}, {age: 20}  ], \'age\' ); // [undefined, 22, 20]\n```\n\n- arrayMap\n```javascript\nvar arr = [1, 4, 9];\nh2m.array.arrayMap(arr, Math.sqrt); // [1, 2, 3]\nconsole.log(arr); // [1, 4, 9]\nh2m.array.arrayMap(arr, function(v, i, array) {\n\t// v: currentValue, i : index, array: original array\n\treturn v * v;\n}); // [1, 16, 81]\n　\nvar kvArray = [{key:1, value:10}, {key:2, value:20}, {key:3, value: 30}];\nh2m.array.arrayMap(kvArray, function(obj){\n   var rObj = {};\n   rObj[obj.key] = obj.value;\n   return rObj;\n}); // [{1: 10}, {2: 20}, {3: 30}]\n```\nsame as Array.prototype.map\n\n- arrayIntersect\n```javascript\nvar a = [1, 2, 3, 4, 5];\nvar b = [3, 4, 7, 9];\nvar c = [3, 4, 5, 6, 7];\nh2m.array.arrayIntersect(a, b, c); // [3, 4]\nvar d = [1, 4, 9, 16];\nh2m.array.arrayIntersect(a, b, c, d); // [4]\n```\n---\n\nReadme is still working\n',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: '46bb63c7b418144207ad482d275372b91b0e9239',
+21 silly publish   _id: 'h2m-javascript@1.0.8',
+21 silly publish   _shasum: '862ccc05dcd5766bd91cb7b030acc40d744f36f1',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name h2m-javascript
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'h2m-javascript',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'h2m-javascript',
+26 silly mapToRegistry   name: 'h2m-javascript',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/h2m-javascript
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /Users/keunhyeok/.npm/h2m-javascript/1.0.8/package.tgz
+30 verbose request uri https://registry.npmjs.org/h2m-javascript
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 14:50:56
+33 verbose request using bearer token for auth
+34 verbose request id 68db77e8aee42a67
+35 http request PUT https://registry.npmjs.org/h2m-javascript
+36 http 403 https://registry.npmjs.org/h2m-javascript
+37 verbose headers { 'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=300',
+37 verbose headers   'content-length': '91',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   date: 'Mon, 28 Aug 2017 05:50:57 GMT',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   connection: 'keep-alive',
+37 verbose headers   'x-served-by': 'cache-nrt6125-NRT',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1503899457.508445,VS0,VE606',
+37 verbose headers   vary: 'Accept-Encoding, Accept' }
+38 verbose request invalidating /Users/keunhyeok/.npm/registry.npmjs.org/h2m-javascript on PUT
+39 error publish Failed PUT 403
+40 verbose stack Error: You cannot publish over the previously published version 1.0.8. : h2m-javascript
+40 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+40 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+40 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+40 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:187:22)
+40 verbose stack     at emitTwo (events.js:106:13)
+40 verbose stack     at Request.emit (events.js:191:7)
+40 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1048:10)
+40 verbose stack     at emitOne (events.js:96:13)
+40 verbose stack     at Request.emit (events.js:188:7)
+40 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:969:12)
+41 verbose statusCode 403
+42 verbose pkgid h2m-javascript
+43 verbose cwd /Users/keunhyeok/Documents/hyeokFolder/h2mJs
+44 error Darwin 15.6.0
+45 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish"
+46 error node v6.10.3
+47 error npm  v3.10.10
+48 error code E403
+49 error You cannot publish over the previously published version 1.0.8. : h2m-javascript
+50 error If you need help, you may report this error at:
+50 error     <https://github.com/npm/npm/issues>
+51 verbose exit [ 1, true ]
